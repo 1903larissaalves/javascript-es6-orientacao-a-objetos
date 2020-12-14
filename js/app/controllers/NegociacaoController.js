@@ -4,19 +4,30 @@ class NegociacaoController{
         
         let $ = document.querySelector.bind(document);
 
-        this.data = $("#data");
-        this.quantidade = $("#quantidade");
-        this.valor = $("#valor");
+        this._data = $("#data");
+        this._quantidade = $("#quantidade");
+        this._valor = $("#valor");
     }
 
     adiciona(event){
 
         event.preventDefault();
 
-        console.log(this.data.value);
-        console.log(this.quantidade.value);
-        console.log(this.valor.value);
+        var data = new Date(
+            ...this._data.value
+            .split('-')
+            .map((item, indice) => item - indice % 2)
+        );
 
+        
+
+        var negociacao = new Negociacao(
+            data,
+            this._quantidade.value,
+            this._valor.value
+        );
+
+        console.log(negociacao);
         
     }
 
