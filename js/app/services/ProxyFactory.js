@@ -15,7 +15,15 @@ class ProxyFactory {
                     }
                 }
                 return Reflect.get(target, prop, receiver);       
+            },
+
+            set(target, prop, value, receiver){
+                if (props.includes(prop)) {
+                    target[prop] = value;
+                    acao(target);
+                }
+                return Reflect.set(target, prop, value, receiver);
             }
-        })
+        });
     }
 }
