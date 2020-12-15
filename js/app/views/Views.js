@@ -4,12 +4,12 @@ class Views{
         this._elemento = elemento;
     }
 
-    _template(){
+    template(){
         throw new Error("O método template tem que ser implementado nas classes filhos");
     }
 
     update(model){
-        this._elemento.innerHTML = this._template(model);
+        this._elemento.innerHTML = this.template(model);
     }
 
 }
