@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>IndexedDB</title>
+</head>
+<body>
+
+    <script>
+        var openRequest = window.indexedDB.open("aluraFrame", 1);
+
+        openRequest.onupgradeneeded = function(event){
+            console.log("Cria ou altera banco de dados existente");
+        }
+
+        openRequest.onsuccess = function(event){
+            console.log("Conexao obtida com sucesso");
+        }
+
+        openRequest.onerror = function(event){
+            console.log(event.target.error);
+        }
+
+    </script>
+    
+</body>
+</html>
