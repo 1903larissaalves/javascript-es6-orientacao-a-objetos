@@ -7,16 +7,21 @@
 <body>
 
     <script>
+
+        //('nomeDB', 'versao do DB')
         var openRequest = window.indexedDB.open("aluraFrame", 1);
 
+        //Cria uma requisicao solitado que criacao do DB
         openRequest.onupgradeneeded = function(event){
             console.log("Cria ou altera banco de dados existente");
         }
 
+        //Requisicao retorna se aberta com sucesso
         openRequest.onsuccess = function(event){
             console.log("Conexao obtida com sucesso");
         }
 
+        //Requisicao retorna se deu algum erro na abertura
         openRequest.onerror = function(event){
             console.log(event.target.error);
         }
