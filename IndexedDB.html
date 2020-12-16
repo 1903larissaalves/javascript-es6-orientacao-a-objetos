@@ -8,17 +8,23 @@
 
     <script>
 
+        var connection;
         //('nomeDB', 'versao do DB')
-        var openRequest = window.indexedDB.open("aluraFrame", 1);
+        var openRequest = window.indexedDB.open("teste", 2);
 
-        //Cria uma requisicao solitado que criacao do DB
+        //Cria uma requisicao que solicita que criacao do DB
         openRequest.onupgradeneeded = function(event){
             console.log("Cria ou altera banco de dados existente");
+            var minhaConnection = event.target.result;
+            minhaConnection.createObjectStore('negociacoes');
         }
 
         //Requisicao retorna se aberta com sucesso
         openRequest.onsuccess = function(event){
             console.log("Conexao obtida com sucesso");
+
+            // e.target.result é uma instância de IDBDatabase
+            connection = event.target.result;
         }
 
         //Requisicao retorna se deu algum erro na abertura
