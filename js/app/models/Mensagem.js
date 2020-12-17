@@ -2,7 +2,7 @@ class Mensagem{
 
     constructor(texto=''){
 
-        this._texto = texto;
+        this._texto = texto || '';
     }
     
     get texto(){
