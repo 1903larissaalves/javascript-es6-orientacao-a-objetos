@@ -76,9 +76,16 @@ class NegociacaoController{
 
     apaga(){
 
-        this._listaNegociacoes.apagaNegociacoes();
+        ConnectionFactory
+            .getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.apagaLista())
+            .then(mensagem =>{
 
-        this._mensagem.texto = "Negociações apagadas com sucesso!";
+                this._mensagem.texto = mensagem;
+                this._listaNegociacoes.apagaNegociacoes();
+            })
+            .catch(erro => this._mensagem.texto = erro);
     }
 
     _criaNegociacao(){
