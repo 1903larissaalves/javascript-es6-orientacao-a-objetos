@@ -56,22 +56,19 @@ class NegociacaoController{
             });
     }
 
-    importanegociacoes(){
-       
+    importaNegociacoes(){
         let service = new NegociacaoService();
-
-        Promise.all([
-            service.getNegociacaoSemana(),
-            service.getNegociacaoSemanaAnterior(),
-            service.getNegociacaoSemanaRetrasada()]
-        ).then(negociacoes => {
-            negociacoes
-            .reduce((arrayReduzido, array) => arrayReduzido.concat(array), [])
-            .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-            this._mensagem.texto = 'Negociações importadas com sucesso';
-        })
-        .catch(erro => this._mensagem.texto = erro);
-        
+        service
+            .getNegociacoes()
+            .then(negociacoes => 
+                negociacoes.filter(negociacao =>  
+                        this._listaNegociacoes.negociacoes.indexOf(negociacao) == -1)
+        )
+            .then(negociacoes => negociacoes.forEach(negociacao => {
+                this._listaNegociacoes.adiciona(negociacao);
+                this._mensagem.texto = 'Negociações do período importadas.'   
+            }))
+            .catch(erro => this._mensagem.texto = erro);   
     }
 
     apaga(){
