@@ -61,9 +61,9 @@ class NegociacaoController{
         service
             .getNegociacoes()
             .then(negociacoes => 
-                negociacoes.filter(negociacao =>  
-                        this._listaNegociacoes.negociacoes.indexOf(negociacao) == -1)
-        )
+                negociacoes.filter(negociacao =>
+                    !this._listaNegociacoes.negociacoes.some(negociacaoExixtente => JSON.stringify(negociacao) == JSON.stringify(negociacaoExixtente)))
+            )
             .then(negociacoes => negociacoes.forEach(negociacao => {
                 this._listaNegociacoes.adiciona(negociacao);
                 this._mensagem.texto = 'Negociações do período importadas.'   
