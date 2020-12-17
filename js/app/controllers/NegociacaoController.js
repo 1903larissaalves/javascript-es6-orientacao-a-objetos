@@ -20,6 +20,12 @@ class NegociacaoController{
 
         this._ordemAtual = '';
 
+        this._init();
+        
+    }
+
+    _init(){
+
         ConnectionFactory
             .getConnection()
             .then(connection => new NegociacaoDao(connection))
@@ -31,6 +37,9 @@ class NegociacaoController{
                 this._mensagem.texto = error;
             });
 
+            setInterval(() =>{
+                this.importaNegociacoes();
+            }, 4000);
     }
 
     adiciona(event){
@@ -71,15 +80,6 @@ class NegociacaoController{
                 this._mensagem.texto = 'Negociações do período importadas.'   
             }))
             .catch(erro => this._mensagem.texto = erro);   
-        
-           /* let service = new NegociacaoService();
-            service
-                .getNegociacoes()
-                .then(negociacoes => negociacoes.forEach(negociacao => {
-                    this._listaNegociacoes.adiciona(negociacao);
-                    this._mensagem.texto = 'Negociações do período importadas'   
-                }))
-                .catch(erro => this._mensagem.texto = erro);    */
     }
 
     apaga(){
