@@ -26,15 +26,14 @@ class NegociacaoController{
 
     _init(){
 
-        ConnectionFactory
-            .getConnection()
-            .then(connection => new NegociacaoDao(connection))
-            .then(dao => dao.listaTodos())
-            .then(negociacoes => negociacoes.forEach(negociacao =>
-                this._listaNegociacoes.adiciona(negociacao)))
+        new NegociacaoService()
+            .lista()
+            .then(negociacoes => 
+                    negociacao.forEach(negociacao => 
+                    this._listaNegociacoes.adiciona(negociacao)))
             .catch(erro =>{
-                console.log("Erro " + erro);
-                this._mensagem.texto = error;
+                console.log(erro);
+                this._mensagem.texto = erro;
             });
 
             setInterval(() =>{
